@@ -9,6 +9,7 @@
     <string name="phone">ნათესავის მობილური</string>
     <string name="first_name">სახელი</string>
     <string name="last_name">გვარი</string>
+    <string name="age">ასაკი</string>
     <string name="blood_group">სისხლის ჯგუფი</string>
 
 </resources>

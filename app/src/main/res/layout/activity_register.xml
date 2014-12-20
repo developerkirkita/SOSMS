@@ -29,6 +29,11 @@
             android:singleLine="true"
             android:hint="@string/last_name"/>
 
+        <EditText android:id="@+id/age"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/age"/>
+
         <EditText android:id="@+id/blood_group"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

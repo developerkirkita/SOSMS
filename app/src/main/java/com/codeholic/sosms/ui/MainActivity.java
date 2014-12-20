@@ -1,4 +1,4 @@
-package com.codeholic.sosms;
+package com.codeholic.sosms.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.telephony.gsm.SmsManager;
+
+import com.codeholic.sosms.R;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
