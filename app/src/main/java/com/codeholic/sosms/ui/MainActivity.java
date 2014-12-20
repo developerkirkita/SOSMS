@@ -3,12 +3,14 @@ package com.codeholic.sosms.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +20,13 @@ import android.widget.Toast;
 import android.telephony.gsm.SmsManager;
 
 import com.codeholic.sosms.R;
+import com.codeholic.sosms.model.User;
+import com.codeholic.sosms.services.BackgroundService;
+import com.codeholic.sosms.services.DBHelper;
 import com.codeholic.sosms.services.UserFunctions;
+
+import java.util.List;
+import java.util.logging.Handler;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -31,7 +39,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     Button clear;
     Button reset;
 
-    ImageButton send, do_not_send;
+    ImageButton do_not_send;
 
     TextView timer;
 
@@ -42,6 +50,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         UserFunctions userFunctions = new UserFunctions();
         if(userFunctions.isUserLoggedIn(getApplicationContext())) {
             setContentView(R.layout.activity_main);
+            startService(new Intent(this, BackgroundService.class));
             senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
@@ -77,7 +86,6 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
 
         timer = (TextView) findViewById(R.id.timer);
-        send = (ImageButton) findViewById(R.id.send);
         do_not_send = (ImageButton) findViewById(R.id.do_not_send);
     }
 
@@ -109,24 +117,32 @@ public class MainActivity extends Activity implements SensorEventListener {
                 float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD) {
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+
                     Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
-                    send.setVisibility(View.VISIBLE);
                     do_not_send.setVisibility(View.VISIBLE);
 
                     TextView warning_message = (TextView) findViewById(R.id.warning_message);
                     warning_message.setText("შეჯახება!");
 
-                    send.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            SendSMS();
+                    new CountDownTimer(30000, 1000) {
+
+                        public void onTick(long millisUntilFinished) {
+                            timer.setText("გაგაზვნამდე დარჩა: " + millisUntilFinished / 1000 + "_წმ");
                         }
-                    });
+
+                        public void onFinish() {
+                            SendSMS();
+                            timer.setText("შეტყობინება გაიგზავნა!");
+                        }
+                    }.start();
+
 
                     do_not_send.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            restart();
                         }
                     });
                 }
@@ -137,6 +153,12 @@ public class MainActivity extends Activity implements SensorEventListener {
         }
     }
 
+    private void restart() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // can be ignored //
@@ -145,7 +167,11 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private void SendSMS() {
 
+        DBHelper db = new DBHelper(MainActivity.this);
+
+
         String phoneNumber = "551506070";
+        String first_name = "first name";
         String message = "Giorgi ebanoidze, asaki: 89 wlis. fb-password: moskvichi123";
 
         try {

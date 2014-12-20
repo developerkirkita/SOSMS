@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +27,16 @@
             android:name=".ui.AboutPage_UserInfo"
             android:label="@string/title_activity_about_page__user_info" >
         </activity>
+
+        <service
+            android:name="com.codeholic.sosms.services.BackgroundService"
+            android:enabled="true" />
+
+        <receiver android:name=".services.AutoStarter" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

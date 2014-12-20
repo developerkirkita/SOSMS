@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.codeholic.sosms.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +64,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 
-    public List<String> getUserInfo() {
+
+    public List<String> getUserInfo () {
         List arr = new ArrayList();
 
         String query = "SELECT  * FROM users";
@@ -69,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             int id = Integer.parseInt(cursor.getString(0));
             String mnumber = cursor.getString(1);
             String fname = cursor.getString(2);
@@ -83,10 +87,13 @@ public class DBHelper extends SQLiteOpenHelper {
             arr.add(lname);
             arr.add(age);
             arr.add(blood);
+        } else {
+            Log.e("ERORRRR: ", "ERRORRR");
         }
 
         return arr;
     }
+
 
     public int getRowCount() {
         String countQuery = "SELECT  * FROM " + TABLE_LOGIN;

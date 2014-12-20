@@ -22,23 +22,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp" />
 
-    <ImageButton android:id="@+id/send"
+    <ImageButton android:id="@+id/do_not_send"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/send_btn"
         android:visibility="invisible"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton android:id="@+id/do_not_send"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/do_not_send"
-        android:visibility="invisible"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/clear"
-        android:layout_alignEnd="@+id/clear" />
+        android:layout_centerHorizontal="true" />
 
     <Button android:id="@+id/clear"
         android:layout_width="fill_parent"
