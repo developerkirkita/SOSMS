@@ -14,7 +14,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,7 @@
         </activity>
 
         <service
-            android:name="com.codeholic.sosms.services.BackgroundService"
+            android:name=".services.Accelerometer"
             android:enabled="true" />
 
         <receiver android:name=".services.AutoStarter" >
@@ -37,6 +37,11 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".ui.CrashedActivity"
+            android:label="@string/title_activity_crashed" >
+        </activity>
     </application>
 
 </manifest>

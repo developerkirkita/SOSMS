@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:id="@+id/user_information"
+        android:orientation="vertical"
+        android:padding="@dimen/row_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:text="@string/personal_info"
+            android:textStyle="bold"
+            android:textSize="@dimen/title_text_size"/>
+
+        <EditText android:id="@+id/first_name"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusUp="@+id/mobile_number"
+            android:hint="@string/first_name_hint"
+            android:imeOptions="actionDone" />
+
+        <EditText android:id="@+id/last_name"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusUp="@+id/mobile_number"
+            android:hint="@string/last_name_hint"
+            android:imeOptions="actionDone" />
+
+        <EditText android:id="@+id/age"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusUp="@+id/mobile_number"
+            android:hint="@string/age_hint"
+            android:imeOptions="actionDone" />
+
+        <EditText android:id="@+id/blood"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusUp="@+id/mobile_number"
+            android:hint="@string/blood_group"
+            android:imeOptions="actionDone" />
+
+        <EditText android:id="@+id/mobile_number"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:nextFocusDown="@+id/password"
+            android:hint="@string/mobile_number_hint"
+            android:inputType="phone" />
+
+        <Button android:id="@+id/save_user"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_btn"/>
+    </LinearLayout>
+
+</ScrollView>

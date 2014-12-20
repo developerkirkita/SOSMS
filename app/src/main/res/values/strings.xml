@@ -6,16 +6,23 @@
     <string name="action_settings">Settings</string>
     <string name="btn_text">Clear</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="phone">ნათესავის მობილური</string>
-    <string name="first_name">სახელი</string>
-    <string name="last_name">გვარი</string>
-    <string name="age">ასაკი</string>
+    <string name="mobile_number_hint">ნათესავის მობილური</string>
+    <string name="first_name_hint">სახელი</string>
+    <string name="last_name_hint">გვარი</string>
+    <string name="age_hint">ასაკი</string>
     <string name="blood_group">სისხლის ჯგუფი</string>
     <string name="save_btn">შენახვა</string>
+    <string name="personal_info">პირადი ინფორმაცია</string>
     <string name="action_about_user_info">ინფო</string>
+    <string name="driver">ავტომობილი</string>
+    <string name="moto">მოტო</string>
+    <string name="velo">ველოსიპედი</string>
+    <string name="skii">თხილამური</string>
+    <string name="crashed">თუ გსურთ რომ შეტყობინება არ გაიგზავნოს დააჭირეთ მწვანე ღილაკს!</string>
     <string name="description">orem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. Mauris nec lectus quam. Duis faucibus ligula quis ante semper tincidunt. Donec nec libero a massa pretium molestie ac ut dui. Etiam venenatis nisl id ante commodo posuere.</string>
     <string name="copyright">copyright 2014</string>
     <string name="reset">reset</string>
     <string name="title_activity_about_page__user_info">AboutPage_UserInfo</string>
+    <string name="title_activity_crashed">CrashedActivity</string>
 
 </resources>
