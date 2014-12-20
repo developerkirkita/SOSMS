@@ -4,7 +4,11 @@
     <string name="app_name">SOSMS</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
     <string name="btn_text">Clear</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="phone">ნათესავის მობილური</string>
+    <string name="first_name">სახელი</string>
+    <string name="last_name">გვარი</string>
+    <string name="blood_group">სისხლის ჯგუფი</string>
 
 </resources>

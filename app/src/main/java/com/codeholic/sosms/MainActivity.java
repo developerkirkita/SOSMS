@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.telephony.gsm.SmsManager;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -90,9 +89,9 @@ public class MainActivity extends Activity implements SensorEventListener {
     private void SendSMS() {
         TextView warning_message = (TextView) findViewById(R.id.warning_message);
         warning_message.setText("შეჯახება!");
-
-        String phoneNumber = "551506070";
-        String message = "Giorgi ebanoidze, asaki: 89 wlis. fb-password: moskvichi123";
+/*
+        String phoneNumber = "112";
+        String message = "this is message";
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
@@ -102,7 +101,7 @@ public class MainActivity extends Activity implements SensorEventListener {
             Toast.makeText(getApplicationContext(), "SMS არ გაიგზავნა", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-
+*/
     }
 
     private void SendEmail() {

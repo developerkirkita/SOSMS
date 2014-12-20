@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical"
+        android:padding="@dimen/row_padding"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <EditText android:id="@+id/phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/row_height_small"
+            android:hint="@string/phone"
+            android:singleLine="true"
+            android:digits="0123456789()- "
+            android:inputType="phone" />
+
+        <EditText android:id="@+id/first_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/row_height_small"
+            android:singleLine="true"
+            android:hint="@string/first_name"/>
+
+        <EditText android:id="@+id/last_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/row_height_small"
+            android:singleLine="true"
+            android:hint="@string/last_name"/>
+
+        <EditText android:id="@+id/blood_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/row_height_small"
+            android:singleLine="true"
+            android:hint="@string/blood_group"/>
+    </LinearLayout>
+</ScrollView>
