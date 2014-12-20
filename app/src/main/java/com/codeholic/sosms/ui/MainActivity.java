@@ -7,9 +7,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.telephony.gsm.SmsManager;
@@ -23,10 +26,12 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senAccelerometer;
     private long lastUpdate;
     private float last_x, last_y, last_z;
-    private static final int SHAKE_THRESHOLD = 800;
+    private static final int SHAKE_THRESHOLD = 7000;
 
     Button clear;
     Button reset;
+
+    ImageButton send, do_not_send;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +105,7 @@ public class MainActivity extends Activity implements SensorEventListener {
                 if (speed > SHAKE_THRESHOLD) {
                     Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
                     SendSMS();
+                    sendEmail();
                 }
                 last_x = x;
                 last_y = y;
@@ -132,8 +138,29 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     }
 
-    private void SendEmail() {
+    protected void sendEmail() {
+        Log.i("Send email", "");
 
+        String[] TO = {"developerkirkita@gmail.com"};
+        String[] CC = {"saba@bit-wire.org"};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending email...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(MainActivity.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void Clear() {
