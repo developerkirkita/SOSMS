@@ -17,5 +17,6 @@
     <string name="copyright">copyright 2014</string>
     <string name="reset">reset</string>
     <string name="title_activity_about_page__user_info">AboutPage_UserInfo</string>
+    <String name="bgworker">Background</String>
 
 </resources>
