@@ -26,12 +26,14 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senAccelerometer;
     private long lastUpdate;
     private float last_x, last_y, last_z;
-    private static final int SHAKE_THRESHOLD = 7000;
+    private static final int SHAKE_THRESHOLD = 4000;
 
     Button clear;
     Button reset;
 
     ImageButton send, do_not_send;
+
+    TextView timer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,10 @@ public class MainActivity extends Activity implements SensorEventListener {
             startActivity(i);
             finish();
         }
+
+        timer = (TextView) findViewById(R.id.timer);
+        send = (ImageButton) findViewById(R.id.send);
+        do_not_send = (ImageButton) findViewById(R.id.do_not_send);
     }
 
     protected void onResume() {
@@ -104,8 +110,25 @@ public class MainActivity extends Activity implements SensorEventListener {
 
                 if (speed > SHAKE_THRESHOLD) {
                     Toast.makeText(this, "shake detected w/ speed: " + speed, Toast.LENGTH_SHORT).show();
-                    SendSMS();
-                    sendEmail();
+                    send.setVisibility(View.VISIBLE);
+                    do_not_send.setVisibility(View.VISIBLE);
+
+                    TextView warning_message = (TextView) findViewById(R.id.warning_message);
+                    warning_message.setText("შეჯახება!");
+
+                    send.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            SendSMS();
+                        }
+                    });
+
+                    do_not_send.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                 }
                 last_x = x;
                 last_y = y;
@@ -121,8 +144,6 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 
     private void SendSMS() {
-        TextView warning_message = (TextView) findViewById(R.id.warning_message);
-        warning_message.setText("შეჯახება!");
 
         String phoneNumber = "551506070";
         String message = "Giorgi ebanoidze, asaki: 89 wlis. fb-password: moskvichi123";
