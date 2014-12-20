@@ -30,7 +30,7 @@ public class UserInformation extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.user_information);
+        setContentView(R.layout.user);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -42,13 +42,13 @@ public class UserInformation extends ActionBarActivity {
         String btn_font_path = "fonts/bog_solo_mtavruli.otf";
         Typeface font_btn = Typeface.createFromAsset(getAssets(), btn_font_path);
 
-        phone = (EditText) findViewById(R.id.phone);
+        phone = (EditText) findViewById(R.id.mobile_number);
         first_name = (EditText) findViewById(R.id.first_name);
         last_name = (EditText) findViewById(R.id.last_name);
         age = (EditText) findViewById(R.id.age);
-        blood_group = (EditText) findViewById(R.id.blood_group);
+        blood_group = (EditText) findViewById(R.id.blood);
 
-        save = (Button) findViewById(R.id.save);
+        save = (Button) findViewById(R.id.save_user);
         save.setTypeface(font_btn);
 
 
