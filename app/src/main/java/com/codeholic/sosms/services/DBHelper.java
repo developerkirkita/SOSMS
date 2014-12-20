@@ -1,5 +1,6 @@
 package com.codeholic.sosms.services;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,47 +12,53 @@ import java.util.List;
 public class DBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "bw_user";
-    private static final String USER_ID = "id";
-    private static final String USER_MNUMBER = "mnumber";
-    private static final String USER_FNAME = "fname";
-    private static final String USER_LNAME = "lname";
-    private static final String USER_AGE = "age";
-    private static final String USER_BLOOD = "blood";
+    private static final String TABLE_LOGIN = "users";
+    private static final String KEY_ID = "id";
+    private static final String KEY_MNUMBER = "mnumber";
+    private static final String KEY_FIRST_NAME = "first_name";
+    private static final String KEY_LAST_NAME = "last_name";
+    private static final String KEY_AGE = "age";
+    private static final String KEY_BLOOD = "blood";
 
-    public DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    public DBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_USERS_TABLE = "CREATE TABLE users IF NOT EXISTS (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "mnumber TEXT, " +
-                "fname TEXT, " +
-                "lname TEXT, " +
-                "age TEXT, " +
-                "blood TEXT )";
-
-        db.execSQL(CREATE_USERS_TABLE);
+        String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_MNUMBER + " TEXT,"
+                + KEY_FIRST_NAME + " TEXT,"
+                + KEY_LAST_NAME + " TEXT,"
+                + KEY_AGE + " TEXT,"
+                + KEY_BLOOD + " TEXT " + ")";
+        db.execSQL(CREATE_LOGIN_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
 
+        // Create tables again
+        onCreate(db);
     }
 
-    public boolean addRecords(String mnumber, String fname, String lname, String age, String blood) {
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
+    public void saveUser(String mNumber, String first_name, String last_name, String age, String blood) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-            String INSERT_RECORD = "INSERT INTO users (mnumber, fname, lname, age, blood) VALUES (" + mnumber + ", " + fname + ", " + lname + ", " + age + ", " + blood + ")";
+        ContentValues values = new ContentValues();
+        values.put(KEY_MNUMBER, mNumber);
+        values.put(KEY_FIRST_NAME, first_name);
+        values.put(KEY_LAST_NAME, last_name);
+        values.put(KEY_AGE, age);
+        values.put(KEY_BLOOD, blood);
 
-            db.execSQL(INSERT_RECORD);
-
-            return true;
-        } catch(Exception exc) {
-            return false;
-        }
+        // Inserting Row
+        db.insert(TABLE_LOGIN, null, values);
+        db.close(); // Closing database connection
     }
 
     public List<String> getUserInfo() {
@@ -81,17 +88,22 @@ public class DBHelper extends SQLiteOpenHelper {
         return arr;
     }
 
-    public boolean dropTable() {
-        try {
-            SQLiteDatabase db = this.getWritableDatabase();
+    public int getRowCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int rowCount = cursor.getCount();
+        db.close();
+        cursor.close();
 
-            String DROP_TABLE = "DROP TABLE users";
+        // return row count
+        return rowCount;
+    }
 
-            db.execSQL(DROP_TABLE);
-
-            return true;
-        } catch(Exception exc) {
-            return false;
-        }
+    public void resetTables(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.delete(TABLE_LOGIN, null, null);
+        db.close();
     }
 }

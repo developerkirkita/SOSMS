@@ -2,6 +2,7 @@ package com.codeholic.sosms.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import android.telephony.gsm.SmsManager;
 
 import com.codeholic.sosms.R;
+import com.codeholic.sosms.services.UserFunctions;
 
 public class MainActivity extends Activity implements SensorEventListener {
 
@@ -21,28 +23,51 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Sensor senAccelerometer;
     private long lastUpdate;
     private float last_x, last_y, last_z;
-    private static final int SHAKE_THRESHOLD = 400;
+    private static final int SHAKE_THRESHOLD = 800;
 
     Button clear;
+    Button reset;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        UserFunctions userFunctions = new UserFunctions();
+        if(userFunctions.isUserLoggedIn(getApplicationContext())) {
+            setContentView(R.layout.activity_main);
+            senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            senSensorManager.registerListener(this, senAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 //        for (int i = 0; i < num.size(); i++) {
-//             Log.i("LOG", " @@@@@@@@" + lotteryNumbers.get(i));
+//             Log.i("LOG", " @@@@@@@@" + num.get(i));
 //        }
 
-        clear = (Button) findViewById(R.id.clear);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Clear();
-            }
-        });
+            clear = (Button) findViewById(R.id.clear);
+            clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Clear();
+                }
+            });
+
+            reset = (Button) findViewById(R.id.reset);
+            reset.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserFunctions userFunctions = new UserFunctions();
+                    userFunctions.logoutUser(getApplicationContext());
+                    Intent i = new Intent(getApplicationContext(), UserInformation.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finish();
+                }
+            });
+        } else {
+            Intent i = new Intent(this, UserInformation.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
     }
 
     protected void onResume() {

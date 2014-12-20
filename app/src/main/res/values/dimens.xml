@@ -6,4 +6,9 @@
     <dimen name="row_height_small">48.0dip</dimen>
     <dimen name="font_medium">14.0sp</dimen>
     <dimen name="row_text_padding">12.0dip</dimen>
+    <dimen name="about_padding">10dp</dimen>
+    <dimen name="app_name_size">26sp</dimen>
+    <dimen name="description_margin_bottom">10dp</dimen>
+    <dimen name="line_spacing">1dp</dimen>
+    <dimen name="subtitle_size">16sp</dimen>
 </resources>
