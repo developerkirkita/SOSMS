@@ -5,12 +5,12 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <service
         android:name="MyService"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/bgworker"
-        >
+        android:icon="@drawable/ic_launcher">
     </service>
 
     <application
@@ -39,6 +39,10 @@
             android:name=".services.Accelerometer"
             android:enabled="true" />
 
+        <service
+            android:name=".services.GPSTracker"
+            android:enabled="true" />
+
         <receiver android:name=".services.AutoStarter" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -47,7 +51,8 @@
 
         <activity
             android:name=".ui.CrashedActivity"
-            android:label="@string/title_activity_crashed" >
+            android:label="@string/title_activity_crashed"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

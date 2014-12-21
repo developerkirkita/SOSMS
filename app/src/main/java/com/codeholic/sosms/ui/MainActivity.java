@@ -3,15 +3,20 @@ package com.codeholic.sosms.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codeholic.sosms.R;
 import com.codeholic.sosms.services.Accelerometer;
+import com.codeholic.sosms.services.GPSTracker;
 import com.codeholic.sosms.services.UserFunctions;
 
 
 public class MainActivity extends Activity {
+
+    CheckBox driver, moto, velo, skii;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,6 +25,7 @@ public class MainActivity extends Activity {
         if(userFunctions.isUserLoggedIn(getApplicationContext())) {
             setContentView(R.layout.activity_main);
             startService(new Intent(this, Accelerometer.class));
+            startService(new Intent(this, GPSTracker.class));
 
 
         } else {
@@ -28,6 +34,33 @@ public class MainActivity extends Activity {
             startActivity(i);
             finish();
         }
+
+        driver = (CheckBox) findViewById(R.id.driver);
+        moto = (CheckBox) findViewById(R.id.moto);
+        velo = (CheckBox) findViewById(R.id.velo);
+        skii = (CheckBox) findViewById(R.id.skii);
+
+        if(driver.isChecked()) {
+            driver.isActivated();
+            moto.setChecked(false);
+            velo.setChecked(false);
+            skii.setChecked(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        //noinspection SimplifiableIfStatement
+        if (android.R.id.home == item.getItemId()) {
+            Intent i = new Intent(this, UserInformation.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void log_out() {

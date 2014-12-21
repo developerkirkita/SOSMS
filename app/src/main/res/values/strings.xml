@@ -19,7 +19,7 @@
     <string name="velo">ველოსიპედი</string>
     <string name="skii">თხილამური</string>
     <string name="crashed">თუ გსურთ რომ შეტყობინება არ გაიგზავნოს დააჭირეთ მწვანე ღილაკს!</string>
-    <string name="description">orem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. Mauris nec lectus quam. Duis faucibus ligula quis ante semper tincidunt. Donec nec libero a massa pretium molestie ac ut dui. Etiam venenatis nisl id ante commodo posuere.</string>
+    <string name="description">orem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. Mauris nec lectus quam. Duis faucibus ligula quis ante semper tincidunt. Donec nec libero a massa pretium molestie ac ut dui. Etiam venenatis nisl id ante commodo posuere. \n\n\n  1.  Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. \n\n 2. Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. Mauris nec lectus quam.  \n\n\n orem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis turpis fringilla, faucibus urna eu, egestas dui. Mauris ut mattis massa. Mauris nec lectus quam.</string>
     <string name="copyright">copyright 2014</string>
     <string name="reset">reset</string>
     <string name="title_activity_about_page__user_info">AboutPage_UserInfo</string>

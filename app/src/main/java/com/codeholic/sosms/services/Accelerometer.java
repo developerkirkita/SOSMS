@@ -22,10 +22,10 @@ public class Accelerometer extends Service implements SensorEventListener {
     private Sensor senAccelerometer;
     private long lastUpdate;
     private float last_x, last_y, last_z;
-    private static final int SHAKE_THRESHOLD = 4500;
+    private static final int SHAKE_THRESHOLD = 2500;
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Accelerometer - BG Mode", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Accelerometer - BG Mode", Toast.LENGTH_SHORT).show();
 
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

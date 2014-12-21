@@ -1,6 +1,7 @@
 package com.codeholic.sosms.ui;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
@@ -9,11 +10,11 @@ import android.telephony.gsm.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codeholic.sosms.R;
+import com.codeholic.sosms.services.GPSTracker;
 
 public class CrashedActivity extends ActionBarActivity {
 
@@ -26,13 +27,17 @@ public class CrashedActivity extends ActionBarActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_crashed);
 
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
+
         timer = (TextView) findViewById(R.id.timer);
         do_not_send = (Button) findViewById(R.id.do_not_send);
 
         final CountDownTimer countDownTimer = new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                mp.start();
                 timer.setText("გაგაზვნამდე დარჩა: " + millisUntilFinished / 1000 + "_წმ");
+
             }
 
             @Override
@@ -44,9 +49,12 @@ public class CrashedActivity extends ActionBarActivity {
 
         countDownTimer.start();
 
+        getLoc();
+
         do_not_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.stop();
                 countDownTimer.cancel();
                 finish();
             }
@@ -54,9 +62,9 @@ public class CrashedActivity extends ActionBarActivity {
     }
 
     private void sendSMS() {
-        String phoneNumber = "551506070";
+        String phoneNumber = "599426341";
         String first_name = "first name";
-        String message = "Giorgi ebanoidze, asaki: 89 wlis. fb-password: moskvichi123";
+        String message = "Pirovneba: Nika Kirkitadze, Asaki: 20, Sisxlis jgufi: 2 uaryofiti - Lokacia: ";
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
@@ -67,6 +75,39 @@ public class CrashedActivity extends ActionBarActivity {
             e.printStackTrace();
         }
     }
+
+    private void getLoc() {
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                GPSTracker gps;
+
+                gps = new GPSTracker(CrashedActivity.this);
+
+                if(gps.canGetLocation()){
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                }else{
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    //gps.showSettingsAlert();
+                    Log.e("Can not get: ", "can not get location");
+                    showToast("Can't get Location");
+                }
+            }
+        };
+
+        thread.start();
+
+    }
+
+
 
     protected void sendEmail() {
         Log.i("Send email", "");
@@ -91,5 +132,15 @@ public class CrashedActivity extends ActionBarActivity {
             Toast.makeText(CrashedActivity.this,
                     "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void showToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), text,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
