@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.telephony.gsm.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +22,17 @@ public class CrashedActivity extends ActionBarActivity {
 
     TextView timer;
     Button do_not_send;
-
+    private Window wind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_crashed);
+
+        wind = this.getWindow();
+        wind.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        wind.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        wind.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.alarm);
 
@@ -49,7 +56,7 @@ public class CrashedActivity extends ActionBarActivity {
 
         countDownTimer.start();
 
-        getLoc();
+        //getLoc();
 
         do_not_send.setOnClickListener(new View.OnClickListener() {
             @Override

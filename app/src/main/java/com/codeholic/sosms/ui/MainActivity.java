@@ -35,17 +35,6 @@ public class MainActivity extends Activity {
             finish();
         }
 
-        driver = (CheckBox) findViewById(R.id.driver);
-        moto = (CheckBox) findViewById(R.id.moto);
-        velo = (CheckBox) findViewById(R.id.velo);
-        skii = (CheckBox) findViewById(R.id.skii);
-
-        if(driver.isChecked()) {
-            driver.isActivated();
-            moto.setChecked(false);
-            velo.setChecked(false);
-            skii.setChecked(false);
-        }
     }
 
     @Override

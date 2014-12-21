@@ -52,11 +52,11 @@ public class UserInformation extends ActionBarActivity {
         save.setTypeface(font_btn);
 
 
-        phone.setTypeface(font_et);
-        first_name.setTypeface(font_et);
-        last_name.setTypeface(font_et);
-        age.setTypeface(font_et);
-        blood_group.setTypeface(font_et);
+        //phone.setTypeface(font_et);
+        //first_name.setTypeface(font_et);
+        //last_name.setTypeface(font_et);
+        //age.setTypeface(font_et);
+        //blood_group.setTypeface(font_et);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
