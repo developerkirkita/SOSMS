@@ -1,9 +1,6 @@
 package com.codeholic.sosms.model;
 
-/**
- * Created by DeveloperKirkita on 20.12.2014.
- */
-public class User {
+class User {
     int _id;
     String _mnumner;
     String _first_name;
