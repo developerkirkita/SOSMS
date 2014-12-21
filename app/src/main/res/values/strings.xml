@@ -24,5 +24,6 @@
     <string name="reset">reset</string>
     <string name="title_activity_about_page__user_info">AboutPage_UserInfo</string>
     <string name="title_activity_crashed">CrashedActivity</string>
+    <string name="bgworker">Background Worker</string>
 
 </resources>
