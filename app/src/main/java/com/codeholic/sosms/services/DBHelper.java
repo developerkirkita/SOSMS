@@ -6,12 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.codeholic.sosms.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -66,8 +60,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public List<String> getUserInfo () {
-        List arr = new ArrayList();
+    public String[] getUserInfo () {
+        String[] arr = new String[5];
 
         String query = "SELECT  * FROM " + TABLE_LOGIN;
 
@@ -82,44 +76,19 @@ public class DBHelper extends SQLiteOpenHelper {
             String age = cursor.getString(4);
             String blood = cursor.getString(5);
 
-            arr.add(id);
-            arr.add(mnumber);
-            arr.add(fname);
-            arr.add(lname);
-            arr.add(age);
-            arr.add(blood);
+            arr[0] = String.valueOf(id);
+            arr[1] = mnumber;
+            arr[2] = fname;
+            arr[3] = lname;
+            arr[4] = age;
+            arr[5] = blood;
         } else {
             Log.e("ERORRRR: ", "ERRORRR");
         }
 
+        Log.e("Array Element : ", arr[2]);
+
         return arr;
-    }
-
-    public List<User> getUser() {
-        List<User> userInfo = new ArrayList<User>();
-        // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_LOGIN;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                User user = new User();
-                user.setID(Integer.parseInt(cursor.getString(0)));
-                user.setMnumber(cursor.getString(1));
-                user.setFirstName(cursor.getString(2));
-                user.setLastName(cursor.getString(3));
-                user.setAge(cursor.getString(5));
-                user.setBlood(cursor.getString(6));
-                // Adding subject to list
-                userInfo.add(user);
-            } while (cursor.moveToNext());
-        }
-
-        // return subject list
-        return userInfo;
     }
 
 
